@@ -13,6 +13,7 @@ class HadesReplyBuilder(ReplyBuilder):
         matches = []
         for k in range(len(details.data)):
             matches.append(details.data[k].full_descr())
+        matches.append('[Source Code](https://github.com/TrippW/HadesBot)')
         return '\n---\n'.join(matches).replace('\n', '\n\n')
 
 ######################################
