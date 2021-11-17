@@ -112,3 +112,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+praw.ini
+hades_checked.txt
