@@ -19,7 +19,10 @@ class PostHandler:
     def __init__(self, matcher, reply_builder):
         self.matcher = matcher
         self.reply_builder = reply_builder
-        
+    
+    def update(self):
+        self.matcher.wiki.update();
+    
     def process(self, post):
         matchDetails = self.matcher.match(post)
         if matchDetails.has_match():
