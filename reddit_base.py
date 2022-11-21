@@ -19,10 +19,10 @@ class PostHandler:
     def __init__(self, matcher, reply_builder):
         self.matcher = matcher
         self.reply_builder = reply_builder
-    
+
     def update(self):
         self.matcher.wiki.update();
-    
+
     def process(self, post):
         matchDetails = self.matcher.match(post)
         if matchDetails.has_match():
@@ -45,7 +45,7 @@ class TestPostHandler(PostHandler):
         print('body:', post.selftext)
         print('-'*10, 'reply', '-'*10, sep='')
         log(reply)
-    
+
 class RedditBot:
     session=None
     subreddit=None
@@ -54,7 +54,7 @@ class RedditBot:
 
     def _checked_filename(self):
         return f'{self.name}_checked.txt'
-    
+
     def __init__(self, name):
         self.name = name
         self.FORCE_WIKI_UPDATE_FILEPATH = f'{name}.update'
@@ -77,11 +77,11 @@ class RedditBot:
                 self.last_processed_utc = datetime.datetime.fromisoformat(s[-1])
         self._write_last_processed_utc_to_file(False)
         log(f'set last processed: {self.last_processed_utc.isoformat()}')
-                
+
     def mark_checked(self, post):
         self.last_processed_utc = _get_post_created_as_datetime(post)
         self._write_last_processed_utc_to_file()
-    
+
     def login(self):
         self.session = praw.Reddit(redirect_uri='http://localhost:8080',
                            user_agent=f'{self.name} bot by /u/devTripp')
@@ -89,10 +89,10 @@ class RedditBot:
     def connect_subreddit(self, subreddit_name):
         self.subreddit=self.session.subreddit(subreddit_name)
 
-    def is_new_post(self, post):        
+    def is_new_post(self, post):
         return ((post is not None)
                 and (_get_post_created_as_datetime(post) > self.last_processed_utc))
-    
+
     def scan(self, handler: PostHandler=None):
         for post in self.subreddit.stream.submissions():
             if self.is_new_post(post):

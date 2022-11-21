@@ -17,7 +17,7 @@ class BoonParser(PageParser):
 
     def create_item(self, data):
         return Boon(data[0], data[1].find('p').text.strip(), data[2].text.strip())
-                    
+
 class DuoBoonParser(PageParser):
     def find_items(self, soup: BeautifulSoup):
         items = []
@@ -28,7 +28,7 @@ class DuoBoonParser(PageParser):
                 if data:
                     items.append(data)
         return items
-    
+
     def create_item(self, data):
         return DuoBoon(data[0].text.replace('\n', ''), data[1].text, data[2].text.replace(' ', '').replace('\n', '').split('/'), data[3].text)
 
@@ -83,7 +83,7 @@ class CompanionParser(PageParser):
     def create_item(self, data):
         return Companion(data[0].text.strip(), data[1].text.strip(), data[2].text.strip())
 
-            
+
 class MirrorOfNightParser(PageParser):
     def find_items(self, soup: BeautifulSoup):
         items = []
@@ -93,7 +93,7 @@ class MirrorOfNightParser(PageParser):
                 items.append(data[:4])
                 items.append(data[4:])
         return items
-    
+
     def create_item(self, data):
         return MirrorOfNightTalents(data[0].text.replace('\n', ' ').strip(), data[1].text.strip(), data[2].text.replace('\n', ' ').strip())
 

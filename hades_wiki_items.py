@@ -9,7 +9,7 @@ class Boon(WikiItem):
         super().__init__(name)
         self.god = god
         self.descr = descr
-        
+
     def key_names(self):
         res =  [ _clean_name(self.name) ]
         for possessive in ['', "'s"]:
@@ -40,14 +40,14 @@ class DuoBoon(WikiItem):
         return f"**Duo Boon {self.name} ({gods})** - {self.descr}\nRequirements: {self.requirements}"
     def __repr__(self):
         return f"<DuoBoon {'+'.join(self.gods)} {self.name}>"
-    
+
 class LegendaryBoon(WikiItem):
     def __init__(self, name, descr, god, requirements):
         super().__init__(name)
         self.god = god
         self.descr = descr
         self.requirements = requirements
-        
+
     def key_names(self):
         res =  [ _clean_name(self.name) ]
         for possessive in ['', "'s"]:
@@ -65,14 +65,14 @@ class Keepsake(WikiItem):
         self.source = source
         self.descr = descr
         self.item_type = 'Keepsake'
-        
+
     def key_names(self):
         res =  [ _clean_name(self.name) ]
         for possessive in ['', "'s"]:
             res.append(_clean_name(self.source+possessive+' '+self.item_type))
             res.append(_clean_name(self.source+possessive+' '+self.name))
         return res
-            
+
     def full_descr(self):
         return f"**{self.name} ({self.source}'s {self.item_type})** - {self.descr}"
     def __repr__(self):

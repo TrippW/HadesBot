@@ -36,9 +36,9 @@ def make_pages():
     #pages.append(character_page)
     pages.append(companion_page)
     pages.append(mirror_page)
-    
+
     return pages
-    
+
 def run(test=False):
     bot = RedditBot(reddit_scanner_name)
     bot.login()

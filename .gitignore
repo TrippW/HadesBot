@@ -114,3 +114,4 @@ dmypy.json
 .pyre/
 praw.ini
 hades_checked.txt
+*.update
