@@ -54,7 +54,7 @@ def run(test=False):
         HandlerClass = TestPostHandler
     else:
         HandlerClass = PostHandler
-    bot.scan_forever(HandlerClass(matcher, reply_builder).process)
+    bot.scan_forever(HandlerClass(matcher, reply_builder))
 
 if __name__=='__main__':
     log('Starting program')

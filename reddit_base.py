@@ -93,22 +93,23 @@ class RedditBot:
         return ((post is not None)
                 and (_get_post_created_as_datetime(post) > self.last_processed_utc))
     
-    def scan(self, on_find=None):
+    def scan(self, handler: PostHandler=None):
         for post in self.subreddit.stream.submissions():
             if self.is_new_post(post):
                 if os.path.exists(self.FORCE_WIKI_UPDATE_FILEPATH):
                     log('Forcing wiki update')
-                    self.wiki.update()
+                    handler.update()
                     os.remove(self.FORCE_WIKI_UPDATE_FILEPATH)
-                if on_find:
-                    on_find(post)
+                    log('Done updating wiki')
+                if handler:
+                    handler.process(post)
                 self.mark_checked(post)
 
-    def scan_forever(self, on_find):
+    def scan_forever(self, handler: PostHandler):
         print('running')
         while True:
             try:
-                self.scan(on_find)
+                self.scan(handler)
             except Exception as e:
                 log(str(e))
                 traceback.print_stack(e)
